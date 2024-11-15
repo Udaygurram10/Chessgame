@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSpring, animated } from '@react-spring/web';
 
 interface SquareProps {
   isLight: boolean;
@@ -15,27 +16,29 @@ export const Square: React.FC<SquareProps> = ({
   children,
   onClick,
 }) => {
-  const baseClasses = "w-16 h-16 flex items-center justify-center relative transform transition-all duration-200";
+  const animation = useSpring({
+    transform: isSelected ? 'translateY(-4px)' : 'translateY(0px)',
+    config: { tension: 300, friction: 10 },
+  });
+
+  const baseClasses = "w-full aspect-square flex items-center justify-center relative transition-all duration-200";
   const colorClasses = isLight 
-    ? "bg-amber-50 hover:bg-amber-100" 
-    : "bg-amber-800 hover:bg-amber-900";
+    ? "bg-white/20 hover:bg-white/30" 
+    : "bg-black/40 hover:bg-black/50";
   const selectedClasses = isSelected 
-    ? "ring-4 ring-blue-400 ring-inset shadow-inner" 
-    : "hover:-translate-y-1 hover:shadow-lg";
+    ? "ring-2 ring-blue-400 ring-inset shadow-lg shadow-blue-500/20" 
+    : "";
   const validMoveClasses = isValidMove 
-    ? "after:absolute after:w-4 after:h-4 after:rounded-full after:bg-blue-400/40 after:shadow-lg after:animate-pulse"
+    ? "after:absolute after:w-3 after:h-3 after:rounded-full after:bg-blue-400/60 after:shadow-lg after:animate-pulse" 
     : "";
 
   return (
-    <div
+    <animated.div
+      style={animation}
       className={`${baseClasses} ${colorClasses} ${selectedClasses} ${validMoveClasses}`}
       onClick={onClick}
-      style={{
-        perspective: '1000px',
-        transformStyle: 'preserve-3d',
-      }}
     >
       {children}
-    </div>
+    </animated.div>
   );
 };
