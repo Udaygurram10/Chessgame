@@ -11,7 +11,7 @@ function App() {
           <div className="flex items-center justify-center gap-3">
             <Crown className="w-10 h-10 text-amber-400" />
             <h1 className="text-6xl font-bold text-center bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent">
-              Ethereal Chess
+              Chess
             </h1>
             <Crown className="w-10 h-10 text-amber-400" />
           </div>
